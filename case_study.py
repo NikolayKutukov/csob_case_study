@@ -31,7 +31,7 @@ data.isna().sum()
 
 data.info()
 
-"""Popis numerických sloupců. Věk nula nedává smysl měli bychom to nahradit; rozsah hodnot ve sloupcich 'Odhadovaná hodnota' a 'Přestupová částka' je obrovský, má smysl použit logaritmickou škalu pro vizualizaci."""
+"""Popis numerických sloupců. Věk nula nedává smysl měli bychom to nahradit; rozsah hodnot ve sloupcích 'Odhadovaná hodnota' a 'Přestupová částka' je obrovský, má smysl použit logaritmickou škálu pro vizualizaci."""
 
 data.describe()
 
@@ -70,7 +70,7 @@ data[data['Pozice'].isin(['Forward', 'Sweeper', 'Defender', 'Midfielder'])]
 
 """#Vizualizace
 
-Z korelační matice vidíme, že hodnota přestupové častky silně souvisí se samotným hráčem, týmem, za který hraje, a sezónou, ve které se přestup uskutečnil. V menší míře s ligou, která úzce souvisí s týmem, a pozicí hráče. Věk hráče nemá na velikost přestupu žádný vliv.
+Z korelační matice vidíme, že hodnota přestupové částky silně souvisí se samotným hráčem, týmem, za který hraje, a sezónou, ve které se přestup uskutečnil. V menší míře s ligou, která úzce souvisí s týmem, a pozicí hráče. Věk hráče nemá na velikost přestupu žádný vliv.
 """
 
 #@title Korelační matice
@@ -78,7 +78,7 @@ Z korelační matice vidíme, že hodnota přestupové častky silně souvisí s
 complete_correlation= associations(data, filename= 'complete_correlation.png', figsize=(8,8))
 df_complete_corr=complete_correlation['corr']
 
-#@title Odhad je částo menši než skutečná častka, v průměru o 11%.
+#@title Odhad je často menší než skutečná částka, v průměru o 11%.
 import matplotlib.ticker as ticker
 #function to change the format of values on X axis from powers of 10 to general
 def format_fn(tick_val, _):
@@ -151,7 +151,7 @@ for index, value in enumerate(data_pos_top['Přestupová částka']):
              va='center', color = 'white', fontsize=11)
 plt.show()
 
-"""###Týmy"""
+"""##Týmy"""
 
 #@title Athletic Bilbao je velmi úspěšný klub se silnými hráči, ale nedělá velké přestupy, protože v tomto klubu mohou hrát pouze Baskové.
 data_tt = data_cl.groupby(by='Nový tým').mean(numeric_only=True).sort_values(by='Přestupová částka', ascending=True)
@@ -276,13 +276,13 @@ plt.figure(figsize=(12, 8))
 
 plt.barh(y = top_transfers['Jméno_unique'], width=top_transfers['Přestupová částka'], color = csob_dark_blue, zorder=2)
 plt.xlabel('Přestupová částka (mil. $)', fontsize=12)
-fixed_position = min(top_transfers['Přestupová částka']) * 0.1
+fixed_position = min(top_transfers['Přestupová částka']) * 0.05
 for index, value in enumerate(top_transfers['Přestupová částka']):
     plt.text(fixed_position, index,
              str(top_transfers['Původní tým'].iloc[index]) + ' → ' + str(top_transfers['Nový tým'].iloc[index]),
              va='center', color = 'white', fontsize=11)
 for index, value in enumerate(top_transfers['Přestupová částka']):
-    plt.text(value - value*0.03, index, str(int(value)) + ' millionů $', va='center', ha='right',
+    plt.text(value - value*0.02, index, str(int(value)) + ' millionů $', va='center', ha='right',
              color='white', fontsize=11)
 plt.title('10 nejdražších fotbalových přestupů', fontsize = 14)
 plt.grid(axis= 'x', zorder = 0)
